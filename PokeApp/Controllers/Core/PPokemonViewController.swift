@@ -14,6 +14,13 @@ final class PPokemonViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Pokemons"
-        
+        let request = PRequest(
+            endpoint: .pokemon,
+            queryParameters: [
+                URLQueryItem(name: "limit", value: "30"),
+                URLQueryItem(name: "offset", value: "30"),
+            ]
+        )
+        print(request.url!)
     }
 }
