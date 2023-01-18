@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A9032F52977718F00BAFF03 /* PService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9032F42977718F00BAFF03 /* PService.swift */; };
+		7A9032F72977719800BAFF03 /* PRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9032F62977719800BAFF03 /* PRequest.swift */; };
+		7A9032F92977722600BAFF03 /* PEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9032F82977722500BAFF03 /* PEndpoint.swift */; };
 		7AEA8DCB2971EC170014B850 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA8DCA2971EC170014B850 /* AppDelegate.swift */; };
 		7AEA8DCD2971EC170014B850 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA8DCC2971EC170014B850 /* SceneDelegate.swift */; };
 		7AEA8DCF2971EC170014B850 /* PTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA8DCE2971EC170014B850 /* PTabBarController.swift */; };
@@ -21,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		7A068FF22972616800AC3AD3 /* PokeApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PokeApp.entitlements; sourceTree = "<group>"; };
+		7A9032F42977718F00BAFF03 /* PService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PService.swift; sourceTree = "<group>"; };
+		7A9032F62977719800BAFF03 /* PRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRequest.swift; sourceTree = "<group>"; };
+		7A9032F82977722500BAFF03 /* PEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEndpoint.swift; sourceTree = "<group>"; };
 		7AEA8DC72971EC170014B850 /* PokeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEA8DCA2971EC170014B850 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AEA8DCC2971EC170014B850 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +74,7 @@
 				7A068FF22972616800AC3AD3 /* PokeApp.entitlements */,
 				7AEA8DE42971EE3C0014B850 /* Resources */,
 				7AEA8DE32971EE330014B850 /* Managers */,
-				7AEA8DE22971EE200014B850 /* APIClients */,
+				7AEA8DE22971EE200014B850 /* APIClient */,
 				7AEA8DE12971EE170014B850 /* ViewModels */,
 				7AEA8DE02971EE120014B850 /* Views */,
 				7AEA8DDF2971EE0C0014B850 /* Models */,
@@ -109,11 +115,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		7AEA8DE22971EE200014B850 /* APIClients */ = {
+		7AEA8DE22971EE200014B850 /* APIClient */ = {
 			isa = PBXGroup;
 			children = (
+				7A9032F42977718F00BAFF03 /* PService.swift */,
+				7A9032F62977719800BAFF03 /* PRequest.swift */,
+				7A9032F82977722500BAFF03 /* PEndpoint.swift */,
 			);
-			path = APIClients;
+			path = APIClient;
 			sourceTree = "<group>";
 		};
 		7AEA8DE32971EE330014B850 /* Managers */ = {
@@ -221,7 +230,10 @@
 				7AEA8DED2971F1160014B850 /* PFavoriteViewController.swift in Sources */,
 				7AEA8DE82971EF930014B850 /* PLocations.swift in Sources */,
 				7AEA8DEB2971F1060014B850 /* PPokemonViewController.swift in Sources */,
+				7A9032F72977719800BAFF03 /* PRequest.swift in Sources */,
+				7A9032F52977718F00BAFF03 /* PService.swift in Sources */,
 				7AEA8DE62971EF830014B850 /* PPokemon.swift in Sources */,
+				7A9032F92977722600BAFF03 /* PEndpoint.swift in Sources */,
 				7AEA8DCD2971EC170014B850 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

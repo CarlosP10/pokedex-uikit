@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Controller to show and search for pokemon
 final class PPokemonViewController: UIViewController {
 
     override func viewDidLoad() {

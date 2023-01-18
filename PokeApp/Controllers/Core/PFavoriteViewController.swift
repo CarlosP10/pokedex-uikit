@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Controller to show and search for favorites pokemon
 final class PFavoriteViewController: UIViewController {
 
     override func viewDidLoad() {
