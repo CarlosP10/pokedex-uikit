@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A4C354E2977786B00B33205 /* PPokemonAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C354D2977786B00B33205 /* PPokemonAbility.swift */; };
+		7A4C3550297778A200B33205 /* PPokemonStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C354F297778A200B33205 /* PPokemonStats.swift */; };
+		7A4C355229777F5700B33205 /* PPokemonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C355129777F5700B33205 /* PPokemonTypes.swift */; };
+		7A4C355429777FDC00B33205 /* PPokemonNamedAPIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C355329777FDC00B33205 /* PPokemonNamedAPIResource.swift */; };
 		7A9032F52977718F00BAFF03 /* PService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9032F42977718F00BAFF03 /* PService.swift */; };
 		7A9032F72977719800BAFF03 /* PRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9032F62977719800BAFF03 /* PRequest.swift */; };
 		7A9032F92977722600BAFF03 /* PEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9032F82977722500BAFF03 /* PEndpoint.swift */; };
@@ -24,6 +28,10 @@
 
 /* Begin PBXFileReference section */
 		7A068FF22972616800AC3AD3 /* PokeApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PokeApp.entitlements; sourceTree = "<group>"; };
+		7A4C354D2977786B00B33205 /* PPokemonAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonAbility.swift; sourceTree = "<group>"; };
+		7A4C354F297778A200B33205 /* PPokemonStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonStats.swift; sourceTree = "<group>"; };
+		7A4C355129777F5700B33205 /* PPokemonTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonTypes.swift; sourceTree = "<group>"; };
+		7A4C355329777FDC00B33205 /* PPokemonNamedAPIResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonNamedAPIResource.swift; sourceTree = "<group>"; };
 		7A9032F42977718F00BAFF03 /* PService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PService.swift; sourceTree = "<group>"; };
 		7A9032F62977719800BAFF03 /* PRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRequest.swift; sourceTree = "<group>"; };
 		7A9032F82977722500BAFF03 /* PEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PEndpoint.swift; sourceTree = "<group>"; };
@@ -97,6 +105,10 @@
 			children = (
 				7AEA8DE52971EF830014B850 /* PPokemon.swift */,
 				7AEA8DE72971EF930014B850 /* PLocations.swift */,
+				7A4C354D2977786B00B33205 /* PPokemonAbility.swift */,
+				7A4C354F297778A200B33205 /* PPokemonStats.swift */,
+				7A4C355129777F5700B33205 /* PPokemonTypes.swift */,
+				7A4C355329777FDC00B33205 /* PPokemonNamedAPIResource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -224,15 +236,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4C355229777F5700B33205 /* PPokemonTypes.swift in Sources */,
 				7AEA8DEF2971F1240014B850 /* PTeamViewController.swift in Sources */,
 				7AEA8DCF2971EC170014B850 /* PTabBarController.swift in Sources */,
+				7A4C3550297778A200B33205 /* PPokemonStats.swift in Sources */,
 				7AEA8DCB2971EC170014B850 /* AppDelegate.swift in Sources */,
 				7AEA8DED2971F1160014B850 /* PFavoriteViewController.swift in Sources */,
 				7AEA8DE82971EF930014B850 /* PLocations.swift in Sources */,
+				7A4C354E2977786B00B33205 /* PPokemonAbility.swift in Sources */,
 				7AEA8DEB2971F1060014B850 /* PPokemonViewController.swift in Sources */,
 				7A9032F72977719800BAFF03 /* PRequest.swift in Sources */,
 				7A9032F52977718F00BAFF03 /* PService.swift in Sources */,
 				7AEA8DE62971EF830014B850 /* PPokemon.swift in Sources */,
+				7A4C355429777FDC00B33205 /* PPokemonNamedAPIResource.swift in Sources */,
 				7A9032F92977722600BAFF03 /* PEndpoint.swift in Sources */,
 				7AEA8DCD2971EC170014B850 /* SceneDelegate.swift in Sources */,
 			);
