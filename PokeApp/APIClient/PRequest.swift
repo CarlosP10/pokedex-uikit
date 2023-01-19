@@ -23,7 +23,7 @@ final class PRequest {
     private let endpoint: PEndpoint
     
     /// Path components for API, if any, is set to avoid pass the same path over and over
-    private let pathComponents: Set<String>
+    private let pathComponents: [String]
     
     /// Query arguments for API, if any
     private let queryParameters: [URLQueryItem]
@@ -69,11 +69,15 @@ final class PRequest {
     ///   - queryParameters: Collection of query parameters
     init(
         endpoint: PEndpoint,
-        pathComponents: Set<String> = [],
+        pathComponents: [String] = [],
         queryParameters: [URLQueryItem] = []
     ) {
         self.endpoint = endpoint
         self.pathComponents = pathComponents
         self.queryParameters = queryParameters
     }
+}
+
+extension PRequest {
+    static let listPokemonsRequest = PRequest(endpoint: .pokemon)
 }
