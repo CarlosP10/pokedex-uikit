@@ -17,6 +17,13 @@
 		7AAAA4E62978B94400A63849 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4E52978B94400A63849 /* Extensions.swift */; };
 		7AAAA4E82978C39900A63849 /* PPokemonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4E72978C39900A63849 /* PPokemonCollectionViewCell.swift */; };
 		7AAAA4EA2978C48D00A63849 /* PPokemonCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4E92978C48D00A63849 /* PPokemonCollectionViewCellViewModel.swift */; };
+		7AAAA4EC2979A19300A63849 /* PPokemonColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4EB2979A19300A63849 /* PPokemonColor.swift */; };
+		7AAAA4EE2979A35600A63849 /* PPokemonSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4ED2979A35600A63849 /* PPokemonSpecies.swift */; };
+		7AAAA4F12979AB0E00A63849 /* PPokemonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4F02979AB0E00A63849 /* PPokemonDetailViewController.swift */; };
+		7AAAA4F32979ABD600A63849 /* PPokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4F22979ABD600A63849 /* PPokemonDetailView.swift */; };
+		7AAAA4F52979ABF900A63849 /* PPokemonDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4F42979ABF900A63849 /* PPokemonDetailViewViewModel.swift */; };
+		7AAAA4F72979BDBB00A63849 /* PFooterLoadingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4F62979BDBB00A63849 /* PFooterLoadingCollectionReusableView.swift */; };
+		7AAAA4F92979FB2300A63849 /* PImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAAA4F82979FB2300A63849 /* PImageLoader.swift */; };
 		7AEA8DCB2971EC170014B850 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA8DCA2971EC170014B850 /* AppDelegate.swift */; };
 		7AEA8DCD2971EC170014B850 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA8DCC2971EC170014B850 /* SceneDelegate.swift */; };
 		7AEA8DCF2971EC170014B850 /* PTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA8DCE2971EC170014B850 /* PTabBarController.swift */; };
@@ -44,6 +51,13 @@
 		7AAAA4E52978B94400A63849 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7AAAA4E72978C39900A63849 /* PPokemonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonCollectionViewCell.swift; sourceTree = "<group>"; };
 		7AAAA4E92978C48D00A63849 /* PPokemonCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		7AAAA4EB2979A19300A63849 /* PPokemonColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonColor.swift; sourceTree = "<group>"; };
+		7AAAA4ED2979A35600A63849 /* PPokemonSpecies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonSpecies.swift; sourceTree = "<group>"; };
+		7AAAA4F02979AB0E00A63849 /* PPokemonDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonDetailViewController.swift; sourceTree = "<group>"; };
+		7AAAA4F22979ABD600A63849 /* PPokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonDetailView.swift; sourceTree = "<group>"; };
+		7AAAA4F42979ABF900A63849 /* PPokemonDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonDetailViewViewModel.swift; sourceTree = "<group>"; };
+		7AAAA4F62979BDBB00A63849 /* PFooterLoadingCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PFooterLoadingCollectionReusableView.swift; sourceTree = "<group>"; };
+		7AAAA4F82979FB2300A63849 /* PImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PImageLoader.swift; sourceTree = "<group>"; };
 		7AEA8DC72971EC170014B850 /* PokeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEA8DCA2971EC170014B850 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AEA8DCC2971EC170014B850 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7AAAA4EF2979AAF100A63849 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				7AAAA4F02979AB0E00A63849 /* PPokemonDetailViewController.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		7AEA8DBE2971EC170014B850 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +129,7 @@
 		7AEA8DDE2971EE040014B850 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7AAAA4EF2979AAF100A63849 /* Other */,
 				7AEA8DE92971F0E00014B850 /* Core */,
 			);
 			path = Controllers;
@@ -126,6 +149,8 @@
 			children = (
 				7AF1A1302978B594009D3FDF /* PPokemonListView.swift */,
 				7AAAA4E72978C39900A63849 /* PPokemonCollectionViewCell.swift */,
+				7AAAA4F22979ABD600A63849 /* PPokemonDetailView.swift */,
+				7AAAA4F62979BDBB00A63849 /* PFooterLoadingCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -135,6 +160,7 @@
 			children = (
 				7AF1A12E2978B50A009D3FDF /* PPokemonListViewViewModel.swift */,
 				7AAAA4E92978C48D00A63849 /* PPokemonCollectionViewCellViewModel.swift */,
+				7AAAA4F42979ABF900A63849 /* PPokemonDetailViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -152,6 +178,7 @@
 		7AEA8DE32971EE330014B850 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				7AAAA4F82979FB2300A63849 /* PImageLoader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -188,6 +215,8 @@
 				7A4C354F297778A200B33205 /* PPokemonStats.swift */,
 				7A4C355129777F5700B33205 /* PPokemonTypes.swift */,
 				7A4C355329777FDC00B33205 /* PPokemonNamedAPIResource.swift */,
+				7AAAA4EB2979A19300A63849 /* PPokemonColor.swift */,
+				7AAAA4ED2979A35600A63849 /* PPokemonSpecies.swift */,
 			);
 			path = DataTypes;
 			sourceTree = "<group>";
@@ -270,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AAAA4F12979AB0E00A63849 /* PPokemonDetailViewController.swift in Sources */,
 				7A4C355229777F5700B33205 /* PPokemonTypes.swift in Sources */,
 				7AEA8DEF2971F1240014B850 /* PTeamViewController.swift in Sources */,
 				7AEA8DCF2971EC170014B850 /* PTabBarController.swift in Sources */,
@@ -283,14 +313,20 @@
 				7AAAA4E82978C39900A63849 /* PPokemonCollectionViewCell.swift in Sources */,
 				7AF1A12D29789A3C009D3FDF /* PGetAllPokemonResponse.swift in Sources */,
 				7AEA8DEB2971F1060014B850 /* PPokemonViewController.swift in Sources */,
+				7AAAA4F92979FB2300A63849 /* PImageLoader.swift in Sources */,
 				7AAAA4EA2978C48D00A63849 /* PPokemonCollectionViewCellViewModel.swift in Sources */,
+				7AAAA4F52979ABF900A63849 /* PPokemonDetailViewViewModel.swift in Sources */,
+				7AAAA4EC2979A19300A63849 /* PPokemonColor.swift in Sources */,
 				7A9032F72977719800BAFF03 /* PRequest.swift in Sources */,
 				7A9032F52977718F00BAFF03 /* PService.swift in Sources */,
 				7AEA8DE62971EF830014B850 /* PPokemon.swift in Sources */,
 				7A4C355429777FDC00B33205 /* PPokemonNamedAPIResource.swift in Sources */,
+				7AAAA4F32979ABD600A63849 /* PPokemonDetailView.swift in Sources */,
+				7AAAA4F72979BDBB00A63849 /* PFooterLoadingCollectionReusableView.swift in Sources */,
 				7A9032F92977722600BAFF03 /* PEndpoint.swift in Sources */,
 				7AEA8DCD2971EC170014B850 /* SceneDelegate.swift in Sources */,
 				7AF1A1312978B594009D3FDF /* PPokemonListView.swift in Sources */,
+				7AAAA4EE2979A35600A63849 /* PPokemonSpecies.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,7 +38,7 @@ class PPokemonCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .secondarySystemBackground
         contentView.addSubviews(imageView, nameLabel)
         addConstraints()
-        setUpLayer()
+        setUpLayer() 
     }
     
     required init?(coder: NSCoder) {

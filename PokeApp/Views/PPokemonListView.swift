@@ -7,9 +7,18 @@
 
 import UIKit
 
+protocol PPokemonListViewDelegate: AnyObject {
+    func pPokemonListView(
+        _ pokemonListView: PPokemonListView,
+        didselectPokemon pokemonUrl: URL?
+    )
+}
+
 /// View that handles showing list of pokemons, loader, etc
 final class PPokemonListView: UIView {
 
+    public weak var delegate: PPokemonListViewDelegate?
+    
     private let viewModel = PPokemonListViewViewModel()
     
     private let spinner: UIActivityIndicatorView = {
@@ -22,13 +31,17 @@ final class PPokemonListView: UIView {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isHidden = true
         collectionView.alpha = 0
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(PPokemonCollectionViewCell.self, forCellWithReuseIdentifier: PPokemonCollectionViewCell.cellIdentifier)
-        
+        collectionView.register(
+            PFooterLoadingCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: PFooterLoadingCollectionReusableView.identifier
+        )
         return collectionView
     }()
     
@@ -40,7 +53,9 @@ final class PPokemonListView: UIView {
         addConstraints()
         spinner.startAnimating()
         viewModel.delegate = self
-        viewModel.fetchPokemons()
+        DispatchQueue.global(qos: .background).async {[weak self] in
+            self?.viewModel.fetchPokemons()
+        }
         setUpCollectionView()
     }
     
@@ -69,6 +84,10 @@ final class PPokemonListView: UIView {
 }
 
 extension PPokemonListView: PPokemonListViewViewModelDelegate {
+    func didSelectPokemon(_ pokemonUrl: URL?) {
+        delegate?.pPokemonListView(self, didselectPokemon: pokemonUrl)
+    }
+    
     func didLoadInitialPokemons() {
         spinner.stopAnimating()
         collectionView.isHidden = false
@@ -78,6 +97,11 @@ extension PPokemonListView: PPokemonListViewViewModelDelegate {
             self.collectionView.alpha = 1
         }
     }
-    
+
+    func didLoadMorePokemons(with newIndexPath: [IndexPath]) {
+        collectionView.performBatchUpdates {
+            self.collectionView.insertItems(at: newIndexPath)
+        }
+    }
     
 }

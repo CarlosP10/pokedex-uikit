@@ -7,7 +7,8 @@
 
 import Foundation
 
-final class PPokemonCollectionViewCellViewModel {
+final class PPokemonCollectionViewCellViewModel: Hashable, Equatable {
+    
     public let pokemonName: String
     private let pokemonImageUrl: URL?
     
@@ -25,16 +26,17 @@ final class PPokemonCollectionViewCellViewModel {
             completion(.failure(URLError(.badURL)))
             return
         }
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error ?? URLError(.badServerResponse)))
-                return
-            }
-            
-            completion(.success(data))
-        }
-        task.resume()
+        PImageLoader.shared.downloadImage(url, completion: completion)
+    }
+    
+    //MARK: - Hashable
+    static func == (lhs: PPokemonCollectionViewCellViewModel, rhs: PPokemonCollectionViewCellViewModel) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(pokemonName)
+        hasher.combine(pokemonImageUrl)
     }
     
 }
