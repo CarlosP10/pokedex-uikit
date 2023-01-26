@@ -10,7 +10,7 @@ import UIKit
 protocol PPokemonListViewDelegate: AnyObject {
     func pPokemonListView(
         _ pokemonListView: PPokemonListView,
-        didselectPokemon pokemonUrl: URL?
+        didselectPokemon pokemonUrl: PPokemonNamedAPIResource
     )
 }
 
@@ -84,7 +84,7 @@ final class PPokemonListView: UIView {
 }
 
 extension PPokemonListView: PPokemonListViewViewModelDelegate {
-    func didSelectPokemon(_ pokemonUrl: URL?) {
+    func didSelectPokemon(_ pokemonUrl: PPokemonNamedAPIResource) {
         delegate?.pPokemonListView(self, didselectPokemon: pokemonUrl)
     }
     

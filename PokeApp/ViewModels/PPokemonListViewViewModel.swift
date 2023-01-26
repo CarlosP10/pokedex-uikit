@@ -10,7 +10,7 @@ import UIKit
 protocol PPokemonListViewViewModelDelegate: AnyObject {
     func didLoadInitialPokemons()
     func didLoadMorePokemons(with newIndexPath: [IndexPath])
-    func didSelectPokemon(_ pokemonUrl: URL?)
+    func didSelectPokemon(_ pokemonUrl: PPokemonNamedAPIResource)
 }
 
 /// View model to handle character list view logic
@@ -56,21 +56,6 @@ final class PPokemonListViewViewModel: NSObject {
             }
         }
     }
-    
-//    func fetchPokemon(_ url: URL?) {
-//        PService.shared.execute(.pokemonRequest, expecting: PPokemon.self) {[weak self] result in
-//            switch result {
-//            case .success(let responseModel):
-//                let results = responseModel.results
-//                self?.pokemons = results
-//                DispatchQueue.main.async {
-//                    self?.delegate?.didLoadInitialPokemons()
-//                }
-//            case .failure(let error):
-//                print(String(describing: error))
-//            }
-//        }
-//    }
     
     /// Paginate if additional pokemon are needed
     public func fetchAdditionalPokemon(url: URL) {
@@ -151,7 +136,7 @@ extension PPokemonListViewViewModel: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let pokemonUrl = URL(string: pokemons[indexPath.row].url)
+        let pokemonUrl = pokemons[indexPath.row]
         delegate?.didSelectPokemon(pokemonUrl)
     }
     
@@ -190,15 +175,15 @@ extension PPokemonListViewViewModel: UIScrollViewDelegate {
             return
         }
         
-        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) {[weak self] t in
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) {[weak self] t in
             let offset = scrollView.contentOffset.y
             let totalContentHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.size.height
             
             if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
-                self?.fetchAdditionalPokemon(url: url)
-//                DispatchQueue.global(.background).async {
-//                }
+                DispatchQueue.global(qos: .background).async {
+                    self?.fetchAdditionalPokemon(url: url)
+                }
             }
             
             t.invalidate()

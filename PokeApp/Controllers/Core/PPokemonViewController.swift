@@ -14,8 +14,13 @@ final class PPokemonViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = ""
+        navigationItem.backBarButtonItem = backBarButtonItem
+        
         view.backgroundColor = .systemBackground
-        title = "Pokemons"
+        title = "Pokedex"
         setUpView()
     }
     
@@ -33,13 +38,12 @@ final class PPokemonViewController: UIViewController {
 
 //MARK: - PPokemonListViewDelegate
 extension PPokemonViewController: PPokemonListViewDelegate {
-    func pPokemonListView(_ pokemonListView: PPokemonListView, didselectPokemon pokemonUrl: URL?) {
+    func pPokemonListView(_ pokemonListView: PPokemonListView, didselectPokemon pokemonUrl: PPokemonNamedAPIResource) {
         //Open detail controller for that controller
-        
         let viewModel = PPokemonDetailViewViewModel(pokemonUrl: pokemonUrl)
         let detailVC = PPokemonDetailViewController(viewModel: viewModel)
+        detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
     
 }

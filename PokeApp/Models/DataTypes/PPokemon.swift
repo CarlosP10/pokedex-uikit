@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PPokemon: Codable {
+struct PPokemon: Codable, PPokemonDataRender {
     
     let id: Int
     let name: String

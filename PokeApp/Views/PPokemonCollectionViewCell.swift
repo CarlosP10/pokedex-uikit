@@ -93,6 +93,5 @@ class PPokemonCollectionViewCell: UICollectionViewCell {
                 break
             }
         }
-        
     }
 }
