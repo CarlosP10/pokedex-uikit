@@ -29,9 +29,10 @@ final class PPokemonDetailViewViewModel: NSObject {
     
     private let pokemonUrl: PPokemonNamedAPIResource?
     
-    public weak var delgate: PPokemonDetailViewViewModelDelegate?
+    public weak var delegate: PPokemonDetailViewViewModelDelegate?
     private var isFetching = false
     private var dataBlock: ((PPokemonDataRender) -> Void)?
+    public var cellView: Int = 0
     
     public var pokemon: PPokemon? {
         didSet {
@@ -44,13 +45,15 @@ final class PPokemonDetailViewViewModel: NSObject {
     
     enum DetailType {
         case infoDetail(viewModel: [PPokemonDetailInfoTableViewCellViewModel])
-        //        case statsDetail(viewModel: [PPokemonDetailInfoTableViewCellViewModel])
+        case statsDetail(viewModel: [PPokemonDetailStatsTableViewCellViewModel])
         //        case abilitiesDetail(viewModel: [PPokemonDetailInfoTableViewCellViewModel])
         
         var displayTitle: String {
             switch self {
             case .infoDetail(viewModel: _):
                 return "Info"
+            case .statsDetail(viewModel: _):
+                return "Base Stats"
             }
         }
     }
@@ -112,13 +115,20 @@ final class PPokemonDetailViewViewModel: NSObject {
     
     private func setUpDetailInfo() {
         guard let pokemon = pokemon else { return }
+        let hasAbilities = pokemon.abilities.count > 1
         details = [
             .infoDetail(viewModel: [
-                .init(name: .height, info: "\(pokemon.height)"),
-                .init(name: .weight, info: "\(pokemon.weight)"),
-                .init(name: .baseExperience, info: "\(pokemon.base_experience)"),
-                .init(name: .order, info: "\(pokemon.order)"),
-            ])
+                .init(name: .type, info: "\(pokemon.typeString)"),
+                .init(name: .height, info: pokemon.heightString),
+                .init(name: .weight, info: pokemon.weightString),
+                hasAbilities ?
+                    .init(name: .abilities, info: pokemon.abilitiesString) :
+                        .init(name: .ability, info: pokemon.abilitiesString),
+                .init(name: .baseExperience, info: "\(pokemon.base_experience)", hasBase: true),
+            ]),
+            .statsDetail(viewModel: pokemon.stats.compactMap({
+                return PPokemonDetailStatsTableViewCellViewModel(titleStat: $0.stat.name, scoreStat: $0.base_stat)
+            }))
         ]
     }
 }
@@ -127,21 +137,32 @@ final class PPokemonDetailViewViewModel: NSObject {
 extension PPokemonDetailViewViewModel: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let details = details[0]
+        let details = details[cellView]
         switch details {
         case .infoDetail(viewModel: let viewModel):
+            return viewModel.count
+        case .statsDetail(viewModel: let viewModel):
             return viewModel.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let details = details[0]
+        let details = details[cellView]
         switch details {
         case .infoDetail(viewModel: let viewModel):
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier:PPokemonDetailInfoTableViewCell.identifier,
                 for: indexPath
             ) as? PPokemonDetailInfoTableViewCell else {
+                fatalError()
+            }
+            cell.configure(with: viewModel[indexPath.row])
+            return cell
+        case .statsDetail(viewModel: let viewModel):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: PPokemonDetailStatsTableViewCell.identifier,
+                for: indexPath
+            ) as? PPokemonDetailStatsTableViewCell else {
                 fatalError()
             }
             cell.configure(with: viewModel[indexPath.row])

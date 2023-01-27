@@ -10,6 +10,7 @@ import Foundation
 final class PPokemonDetailInfoTableViewCellViewModel {
     private let name: Info
     private let info: String
+    public let hasBase: Bool
     
     public var nameTitle: String {
         name.displayTitle
@@ -25,13 +26,19 @@ final class PPokemonDetailInfoTableViewCellViewModel {
         case height,
              order,
              weight,
+             type,
+             abilities,
+             ability,
              baseExperience
         
         var displayTitle: String {
             switch self {
             case .height,
                     .order,
-                    .weight:
+                    .weight,
+                    .type,
+                    .abilities,
+                    .ability:
                 return rawValue.capitalized
             case .baseExperience:
                 return "Base experience"
@@ -39,8 +46,9 @@ final class PPokemonDetailInfoTableViewCellViewModel {
         }
     }
     
-    init(name: Info, info: String) {
+    init(name: Info, info: String, hasBase: Bool = false) {
         self.name = name
         self.info = info
+        self.hasBase = hasBase
     }
 }

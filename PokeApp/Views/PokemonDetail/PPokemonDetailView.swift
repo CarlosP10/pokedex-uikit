@@ -10,6 +10,12 @@ import UIKit
 /// View for single pokemon info
 final class PPokemonDetailView: UIView {
     
+    private enum Constants {
+        static let segmentedControlHeight: CGFloat = 40
+        static let underlineViewColor: UIColor = .blue
+        static let underlineViewHeight: CGFloat = 2
+    }
+    
     //MARK: - UI
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
@@ -37,12 +43,16 @@ final class PPokemonDetailView: UIView {
         return view
     }()
     
-    private let myPickerViewValues = ["Uno", "Dos" , "Tres"]
+    private var myPickerViewValues = ["Uno", "Dos"]
     
     private let haptic = UISelectionFeedbackGenerator()
     
     private let segmentedViews: UISegmentedControl = {
         let segmented = UISegmentedControl()
+        segmented.backgroundColor = .clear
+        segmented.tintColor = .clear
+        segmented.setTitleTextAttributes([.foregroundColor : UIColor.label ], for: .selected)
+        segmented.setTitleTextAttributes([.foregroundColor : UIColor.secondaryLabel], for: .normal)
         segmented.translatesAutoresizingMaskIntoConstraints = false
         return segmented
     }()
@@ -53,6 +63,11 @@ final class PPokemonDetailView: UIView {
             PPokemonDetailInfoTableViewCell.self,
             forCellReuseIdentifier: PPokemonDetailInfoTableViewCell.identifier
         )
+        tableView.register(
+            PPokemonDetailStatsTableViewCell.self,
+            forCellReuseIdentifier: PPokemonDetailStatsTableViewCell.identifier
+        )
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -69,7 +84,6 @@ final class PPokemonDetailView: UIView {
         
         addSubviews(viewContainer,imageView, spinner)
         viewContainer.addSubviews(tableView, segmentedViews)
-        setUpSegmentedView()
         setUpConstraints()
         spinner.startAnimating()
         configure()
@@ -118,8 +132,8 @@ final class PPokemonDetailView: UIView {
         haptic.prepare()
         segmentedViews.removeAllSegments()
         
-        for (index, value) in myPickerViewValues.enumerated() {
-            segmentedViews.insertSegment(withTitle: value, at: index, animated: true)
+        for (index, value) in viewModel.details.enumerated() {
+            segmentedViews.insertSegment(withTitle: value.displayTitle, at: index, animated: true)
         }
         segmentedViews.selectedSegmentIndex = 0
         segmentedViews.addTarget(self, action: #selector(viewChanged), for: .valueChanged)
@@ -128,6 +142,9 @@ final class PPokemonDetailView: UIView {
     @objc
     private func viewChanged() {
         haptic.selectionChanged()
+        viewModel.cellView = segmentedViews.selectedSegmentIndex
+        tableView.reloadData()
+        
     }
     
     public func configure(){
@@ -140,6 +157,7 @@ final class PPokemonDetailView: UIView {
             guard let strongSelf = self else { return }
             
             DispatchQueue.main.async {
+                strongSelf.setUpSegmentedView()
                 strongSelf.tableView.dataSource = strongSelf.viewModel
                 strongSelf.tableView.delegate = strongSelf.viewModel
             }
@@ -156,6 +174,10 @@ final class PPokemonDetailView: UIView {
                         UIView.animate(withDuration: 0.4) {
                             strongSelf.viewContainer.alpha = 1
                         }
+                        
+                        
+                        
+                        
                     }
                 case .failure(let error):
                     print(String(describing: error))

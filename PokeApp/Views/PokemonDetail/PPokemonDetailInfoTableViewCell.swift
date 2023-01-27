@@ -25,6 +25,7 @@ final class PPokemonDetailInfoTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .regular)
         label.textColor = .label
+        label.numberOfLines = 0
         label.textAlignment = .left
         return label
     }()
@@ -52,17 +53,17 @@ final class PPokemonDetailInfoTableViewCell: UITableViewCell {
     
     private func addConstraints() {
         let frame = contentView.frame
-        let width = (frame.width-15)/2
+        let width = (frame.width)/2
         NSLayoutConstraint.activate([
             
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
             infoLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             infoLabel.widthAnchor.constraint(equalToConstant: width),
-            infoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            infoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
             infoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
     }

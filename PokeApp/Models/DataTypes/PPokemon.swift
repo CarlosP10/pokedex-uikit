@@ -29,4 +29,28 @@ struct PPokemon: Codable, PPokemonDataRender {
     var proImage: String {
         return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/\(id).svg"
     }
+    
+    var heightString: String {
+        let cm = String(format: "%.2f", Double(height) * 2.54)
+        return "\(height)\" (\(cm) cm)"
+    }
+    
+    var weightString: String {
+        let kg = String(format: "%.2f", Double(weight) / 2.204)
+        return "\(weight) lbs (\(kg) kg)"
+    }
+    
+    var abilitiesString: String {
+        var abilitiesNames: [String] = abilities.compactMap({
+            return $0.ability.name.capitalized
+        })
+        return abilitiesNames.joined(separator: ", ")
+    }
+    
+    var typeString: String {
+        var typeNames: [String] = types.compactMap({
+            return $0.type.name.capitalized
+        })
+        return typeNames.joined(separator: ", ")
+    }
 }
