@@ -8,10 +8,6 @@
 import Foundation
 import UIKit
 
-protocol PPokemonDetailViewViewModelDelegate: AnyObject {
-    func didLoadPokemon(with pokemon: PPokemon)
-}
-
 protocol PPokemonDataRender {
     var id: Int { get }
     var name: String { get }
@@ -29,7 +25,6 @@ final class PPokemonDetailViewViewModel: NSObject {
     
     private let pokemonUrl: PPokemonNamedAPIResource?
     
-    public weak var delegate: PPokemonDetailViewViewModelDelegate?
     private var isFetching = false
     private var dataBlock: ((PPokemonDataRender) -> Void)?
     public var cellView: Int = 0
@@ -46,7 +41,6 @@ final class PPokemonDetailViewViewModel: NSObject {
     enum DetailType {
         case infoDetail(viewModel: [PPokemonDetailInfoTableViewCellViewModel])
         case statsDetail(viewModel: [PPokemonDetailStatsTableViewCellViewModel])
-        //        case abilitiesDetail(viewModel: [PPokemonDetailInfoTableViewCellViewModel])
         
         var displayTitle: String {
             switch self {
@@ -105,7 +99,7 @@ final class PPokemonDetailViewViewModel: NSObject {
     }
     
     public func fetchImage(completion: @escaping (Result<Data, Error>) -> Void) {
-        guard let pokemongImage = pokemon?.baseImage,
+        guard let pokemongImage = pokemon?.proImage,
               let url = URL(string: pokemongImage) else {
             completion(.failure(URLError(.badURL)))
             return

@@ -11,6 +11,8 @@
 		7A4C3550297778A200B33205 /* PPokemonStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C354F297778A200B33205 /* PPokemonStats.swift */; };
 		7A4C355229777F5700B33205 /* PPokemonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C355129777F5700B33205 /* PPokemonTypes.swift */; };
 		7A4C355429777FDC00B33205 /* PPokemonNamedAPIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C355329777FDC00B33205 /* PPokemonNamedAPIResource.swift */; };
+		7A761F1529839538007C9460 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A761F1429839538007C9460 /* SVGKit */; };
+		7A761F1729839538007C9460 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7A761F1629839538007C9460 /* SVGKitSwift */; };
 		7A76ABF5298054A300AB5213 /* PPokemonDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A76ABF4298054A300AB5213 /* PPokemonDetailInfoTableViewCell.swift */; };
 		7A76ABF929805D1300AB5213 /* PPokemonDetailInfoTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A76ABF829805D1300AB5213 /* PPokemonDetailInfoTableViewCellViewModel.swift */; };
 		7A76ABFD29833E5000AB5213 /* PPokemonDetailStatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A76ABFC29833E5000AB5213 /* PPokemonDetailStatsTableViewCell.swift */; };
@@ -88,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A761F1729839538007C9460 /* SVGKitSwift in Frameworks */,
+				7A761F1529839538007C9460 /* SVGKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +277,10 @@
 			dependencies = (
 			);
 			name = PokeApp;
+			packageProductDependencies = (
+				7A761F1429839538007C9460 /* SVGKit */,
+				7A761F1629839538007C9460 /* SVGKitSwift */,
+			);
 			productName = PokeApp;
 			productReference = 7AEA8DC72971EC170014B850 /* PokeApp.app */;
 			productType = "com.apple.product-type.application";
@@ -301,6 +309,9 @@
 				Base,
 			);
 			mainGroup = 7AEA8DBE2971EC170014B850;
+			packageReferences = (
+				7A761F1329839538007C9460 /* XCRemoteSwiftPackageReference "SVGKit" */,
+			);
 			productRefGroup = 7AEA8DC82971EC170014B850 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -570,6 +581,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7A761F1329839538007C9460 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7A761F1429839538007C9460 /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A761F1329839538007C9460 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
+		};
+		7A761F1629839538007C9460 /* SVGKitSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A761F1329839538007C9460 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKitSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7AEA8DBF2971EC170014B850 /* Project object */;
 }

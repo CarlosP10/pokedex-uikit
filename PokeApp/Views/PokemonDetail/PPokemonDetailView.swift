@@ -6,15 +6,10 @@
 //
 
 import UIKit
+import SVGKit
 
 /// View for single pokemon info
 final class PPokemonDetailView: UIView {
-    
-    private enum Constants {
-        static let segmentedControlHeight: CGFloat = 40
-        static let underlineViewColor: UIColor = .blue
-        static let underlineViewHeight: CGFloat = 2
-    }
     
     //MARK: - UI
     private let spinner: UIActivityIndicatorView = {
@@ -43,14 +38,13 @@ final class PPokemonDetailView: UIView {
         return view
     }()
     
-    private var myPickerViewValues = ["Uno", "Dos"]
-    
     private let haptic = UISelectionFeedbackGenerator()
     
     private let segmentedViews: UISegmentedControl = {
         let segmented = UISegmentedControl()
         segmented.backgroundColor = .clear
         segmented.tintColor = .clear
+        segmented.alpha = 0
         segmented.setTitleTextAttributes([.foregroundColor : UIColor.label ], for: .selected)
         segmented.setTitleTextAttributes([.foregroundColor : UIColor.secondaryLabel], for: .normal)
         segmented.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +53,7 @@ final class PPokemonDetailView: UIView {
     
     public var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.alpha = 0
         tableView.register(
             PPokemonDetailInfoTableViewCell.self,
             forCellReuseIdentifier: PPokemonDetailInfoTableViewCell.identifier
@@ -68,6 +63,7 @@ final class PPokemonDetailView: UIView {
             forCellReuseIdentifier: PPokemonDetailStatsTableViewCell.identifier
         )
         tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -110,7 +106,7 @@ final class PPokemonDetailView: UIView {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -width),
             
-            viewContainer.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -45),
+            viewContainer.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -25),
             viewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
             viewContainer.trailingAnchor.constraint(equalTo: trailingAnchor),
             viewContainer.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -144,7 +140,25 @@ final class PPokemonDetailView: UIView {
         haptic.selectionChanged()
         viewModel.cellView = segmentedViews.selectedSegmentIndex
         tableView.reloadData()
+    }
+    
+    private func loadViewInitial(data: Data) {
+        tableView.dataSource = viewModel
+        tableView.delegate = viewModel
         
+        spinner.stopAnimating()
+        let image = SVGKImage(data: data)
+//        let image = UIImage(data: data)
+        imageView.image = image?.uiImage
+        viewContainer.isHidden = false
+        
+        UIView.animate(withDuration: 0.4) {
+            self.viewContainer.alpha = 1
+            self.segmentedViews.alpha = 1
+            self.tableView.alpha = 1
+        }
+        
+        setUpSegmentedView()
     }
     
     public func configure(){
@@ -156,28 +170,11 @@ final class PPokemonDetailView: UIView {
             
             guard let strongSelf = self else { return }
             
-            DispatchQueue.main.async {
-                strongSelf.setUpSegmentedView()
-                strongSelf.tableView.dataSource = strongSelf.viewModel
-                strongSelf.tableView.delegate = strongSelf.viewModel
-            }
-            
             strongSelf.viewModel.fetchImage { result in
                 switch result {
                 case .success(let data):
                     DispatchQueue.main.async {
-                        strongSelf.spinner.stopAnimating()
-                        
-                        let image = UIImage(data: data)
-                        strongSelf.imageView.image = image
-                        strongSelf.viewContainer.isHidden = false
-                        UIView.animate(withDuration: 0.4) {
-                            strongSelf.viewContainer.alpha = 1
-                        }
-                        
-                        
-                        
-                        
+                        strongSelf.loadViewInitial(data: data)
                     }
                 case .failure(let error):
                     print(String(describing: error))
