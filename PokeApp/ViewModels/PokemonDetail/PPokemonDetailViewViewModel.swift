@@ -8,35 +8,12 @@
 import Foundation
 import UIKit
 
-protocol PPokemonDataRender {
-    var id: Int { get }
-    var name: String { get }
-    var base_experience: Int { get }
-    var height: Int { get }
-    var order: Int { get }
-    var weight: Int { get }
-    var abilities: [PPokemonAbility] { get }
-    var stats: [PPokemonStats] { get }
-    var types: [PPokemonTypes] { get }
-}
-
 /// Get Detail Pokemon
 final class PPokemonDetailViewViewModel: NSObject {
     
-    private let pokemonUrl: PPokemonNamedAPIResource?
-    
-    private var isFetching = false
-    private var dataBlock: ((PPokemonDataRender) -> Void)?
     public var cellView: Int = 0
     
-    public var pokemon: PPokemon? {
-        didSet {
-            guard let model = pokemon else {
-                return
-            }
-            dataBlock?(model)
-        }
-    }
+    public var pokemon: PPokemon
     
     enum DetailType {
         case infoDetail(viewModel: [PPokemonDetailInfoTableViewCellViewModel])
@@ -54,53 +31,17 @@ final class PPokemonDetailViewViewModel: NSObject {
     
     public var details: [DetailType] = []
     
-    init(pokemonUrl: PPokemonNamedAPIResource?) {
-        self.pokemonUrl = pokemonUrl
+    init(pokemon: PPokemon) {
+        self.pokemon = pokemon
     }
     
     public var title: String {
-        pokemonUrl?.name.capitalized ?? ""
-    }
-    
-    private var requestUrl: URL? {
-        return URL(string: pokemonUrl?.url ?? "")
-    }
-    
-    public func fetchPokemon() {
-        guard !isFetching else {
-            if let model = pokemon {
-                dataBlock?(model)
-            }
-            return
-        }
-        
-        guard let url = requestUrl,
-              let request = PRequest(url: url) else {
-            print("Failed to create request")
-            return
-        }
-        
-        isFetching = true
-        
-        PService.shared.execute(request, expecting: PPokemon.self) {[weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .success(let responseModel):
-                strongSelf.pokemon = responseModel
-                strongSelf.setUpDetailInfo()
-            case .failure(let error):
-                print(String(describing: error))
-            }
-        }
-    }
-    
-    public func registerForData(_ block: @escaping (PPokemonDataRender) -> Void) {
-        self.dataBlock = block
+        pokemon.name.capitalized
     }
     
     public func fetchImage(completion: @escaping (Result<Data, Error>) -> Void) {
-        guard let pokemongImage = pokemon?.proImage,
-              let url = URL(string: pokemongImage) else {
+        setUpDetailInfo()
+        guard let url = URL(string: pokemon.proImage) else {
             completion(.failure(URLError(.badURL)))
             return
         }
@@ -108,7 +49,6 @@ final class PPokemonDetailViewViewModel: NSObject {
     }
     
     private func setUpDetailInfo() {
-        guard let pokemon = pokemon else { return }
         let hasAbilities = pokemon.abilities.count > 1
         details = [
             .infoDetail(viewModel: [

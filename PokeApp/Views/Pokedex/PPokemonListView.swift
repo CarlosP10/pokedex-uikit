@@ -9,8 +9,7 @@ import UIKit
 
 protocol PPokemonListViewDelegate: AnyObject {
     func pPokemonListView(
-        _ pokemonListView: PPokemonListView,
-        didselectPokemon pokemonUrl: PPokemonNamedAPIResource
+        didselectPokemon pokemon: PPokemon
     )
 }
 
@@ -28,14 +27,23 @@ final class PPokemonListView: UIView {
         return spinner
     }()
     
+    private let doneButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Donee", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentHorizontalAlignment = .right
+        return button
+    }()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isHidden = true
         collectionView.alpha = 0
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(PPokemonCollectionViewCell.self, forCellWithReuseIdentifier: PPokemonCollectionViewCell.cellIdentifier)
         collectionView.register(
             PFooterLoadingCollectionReusableView.self,
@@ -45,11 +53,22 @@ final class PPokemonListView: UIView {
         return collectionView
     }()
     
+    private let stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.clipsToBounds = true
+        stack.spacing = 5
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(collectionView, spinner)
+        addSubviews(stackView, spinner)
+        stackView.addArrangedSubviews(doneButton,collectionView)
         addConstraints()
         spinner.startAnimating()
         viewModel.delegate = self
@@ -57,11 +76,18 @@ final class PPokemonListView: UIView {
             self?.viewModel.fetchPokemons()
         }
         setUpCollectionView()
+        doneButton.addTarget(self, action: #selector(doneTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("Unsupported")
     }
+    
+    @objc
+    private func doneTapped() {
+        viewModel.doneTapped()
+    }
+    
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
@@ -70,10 +96,10 @@ final class PPokemonListView: UIView {
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
     
@@ -84,8 +110,18 @@ final class PPokemonListView: UIView {
 }
 
 extension PPokemonListView: PPokemonListViewViewModelDelegate {
-    func didSelectPokemon(_ pokemonUrl: PPokemonNamedAPIResource) {
-        delegate?.pPokemonListView(self, didselectPokemon: pokemonUrl)
+    func didSetModeView() {
+        doneButton.setTitle("Done", for: .normal)
+        collectionView.allowsMultipleSelection = false
+    }
+    
+    func didSetModeSelect() {
+        doneButton.setTitle("Select", for: .normal)
+        collectionView.allowsMultipleSelection = true
+    }
+    
+    func didSelectPokemon(_ pokemon: PPokemon) {
+        delegate?.pPokemonListView(didselectPokemon: pokemon)
     }
     
     func didLoadInitialPokemons() {

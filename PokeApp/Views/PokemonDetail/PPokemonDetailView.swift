@@ -51,7 +51,7 @@ final class PPokemonDetailView: UIView {
         return segmented
     }()
     
-    public var tableView: UITableView = {
+    private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.alpha = 0
         tableView.register(
@@ -162,27 +162,16 @@ final class PPokemonDetailView: UIView {
     }
     
     public func configure(){
-        DispatchQueue.global(qos: .background).async {[weak self] in
-            self?.viewModel.fetchPokemon()
-        }
-        
-        viewModel.registerForData { [weak self] data in
-            
-            guard let strongSelf = self else { return }
-            
-            strongSelf.viewModel.fetchImage { result in
-                switch result {
-                case .success(let data):
-                    DispatchQueue.main.async {
-                        strongSelf.loadViewInitial(data: data)
-                    }
-                case .failure(let error):
-                    print(String(describing: error))
-                    break
+        viewModel.fetchImage { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.loadViewInitial(data: data)
                 }
+            case .failure(let error):
+                print(String(describing: error))
+                break
             }
-            
         }
     }
-    
 }

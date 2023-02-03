@@ -7,10 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A3E0C9C2985DE2200927B1B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A3E0C9B2985DE2200927B1B /* GoogleService-Info.plist */; };
+		7A3E0C9F2985DEFA00927B1B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3E0C9E2985DEFA00927B1B /* FirebaseAnalytics */; };
+		7A3E0CA12985DEFA00927B1B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3E0CA02985DEFA00927B1B /* FirebaseCrashlytics */; };
+		7A3E0CA32985DEFA00927B1B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3E0CA22985DEFA00927B1B /* FirebaseFirestore */; };
+		7A3E0CA52985FED400927B1B /* PPokemonFavoriteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3E0CA42985FED400927B1B /* PPokemonFavoriteListView.swift */; };
+		7A3E0CA72985FEE200927B1B /* PPokemonFavoriteListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3E0CA62985FEE200927B1B /* PPokemonFavoriteListViewViewModel.swift */; };
+		7A3E0CAA29860D5200927B1B /* PFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3E0CA929860D5200927B1B /* PFirestoreService.swift */; };
+		7A3E0CAC29860DC800927B1B /* PFirestoreCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3E0CAB29860DC800927B1B /* PFirestoreCollections.swift */; };
+		7A3E0CAF2986A90B00927B1B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7A3E0CAE2986A90B00927B1B /* FirebaseFirestoreSwift */; };
+		7A3E0CB32989CC4600927B1B /* PPokemonTeamListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3E0CB22989CC4600927B1B /* PPokemonTeamListView.swift */; };
 		7A4C354E2977786B00B33205 /* PPokemonAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C354D2977786B00B33205 /* PPokemonAbility.swift */; };
 		7A4C3550297778A200B33205 /* PPokemonStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C354F297778A200B33205 /* PPokemonStats.swift */; };
 		7A4C355229777F5700B33205 /* PPokemonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C355129777F5700B33205 /* PPokemonTypes.swift */; };
 		7A4C355429777FDC00B33205 /* PPokemonNamedAPIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4C355329777FDC00B33205 /* PPokemonNamedAPIResource.swift */; };
+		7A6D18FF298AF530006E367A /* PPokemonTeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6D18FE298AF530006E367A /* PPokemonTeamCollectionViewCell.swift */; };
 		7A761F1529839538007C9460 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A761F1429839538007C9460 /* SVGKit */; };
 		7A761F1729839538007C9460 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7A761F1629839538007C9460 /* SVGKitSwift */; };
 		7A76ABF5298054A300AB5213 /* PPokemonDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A76ABF4298054A300AB5213 /* PPokemonDetailInfoTableViewCell.swift */; };
@@ -47,10 +58,17 @@
 
 /* Begin PBXFileReference section */
 		7A068FF22972616800AC3AD3 /* PokeApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PokeApp.entitlements; sourceTree = "<group>"; };
+		7A3E0C9B2985DE2200927B1B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7A3E0CA42985FED400927B1B /* PPokemonFavoriteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonFavoriteListView.swift; sourceTree = "<group>"; };
+		7A3E0CA62985FEE200927B1B /* PPokemonFavoriteListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonFavoriteListViewViewModel.swift; sourceTree = "<group>"; };
+		7A3E0CA929860D5200927B1B /* PFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PFirestoreService.swift; sourceTree = "<group>"; };
+		7A3E0CAB29860DC800927B1B /* PFirestoreCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PFirestoreCollections.swift; sourceTree = "<group>"; };
+		7A3E0CB22989CC4600927B1B /* PPokemonTeamListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonTeamListView.swift; sourceTree = "<group>"; };
 		7A4C354D2977786B00B33205 /* PPokemonAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonAbility.swift; sourceTree = "<group>"; };
 		7A4C354F297778A200B33205 /* PPokemonStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonStats.swift; sourceTree = "<group>"; };
 		7A4C355129777F5700B33205 /* PPokemonTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonTypes.swift; sourceTree = "<group>"; };
 		7A4C355329777FDC00B33205 /* PPokemonNamedAPIResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonNamedAPIResource.swift; sourceTree = "<group>"; };
+		7A6D18FE298AF530006E367A /* PPokemonTeamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonTeamCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A76ABF4298054A300AB5213 /* PPokemonDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
 		7A76ABF829805D1300AB5213 /* PPokemonDetailInfoTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonDetailInfoTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		7A76ABFC29833E5000AB5213 /* PPokemonDetailStatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPokemonDetailStatsTableViewCell.swift; sourceTree = "<group>"; };
@@ -91,13 +109,84 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A761F1729839538007C9460 /* SVGKitSwift in Frameworks */,
+				7A3E0CA12985DEFA00927B1B /* FirebaseCrashlytics in Frameworks */,
 				7A761F1529839538007C9460 /* SVGKit in Frameworks */,
+				7A3E0CA32985DEFA00927B1B /* FirebaseFirestore in Frameworks */,
+				7A3E0C9F2985DEFA00927B1B /* FirebaseAnalytics in Frameworks */,
+				7A3E0CAF2986A90B00927B1B /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A3E0C972985DB5F00927B1B /* Pokedex */ = {
+			isa = PBXGroup;
+			children = (
+				7AF1A12E2978B50A009D3FDF /* PPokemonListViewViewModel.swift */,
+				7AAAA4E92978C48D00A63849 /* PPokemonCollectionViewCellViewModel.swift */,
+			);
+			path = Pokedex;
+			sourceTree = "<group>";
+		};
+		7A3E0C982985DB6F00927B1B /* Pokedex */ = {
+			isa = PBXGroup;
+			children = (
+				7AF1A1302978B594009D3FDF /* PPokemonListView.swift */,
+				7AAAA4E72978C39900A63849 /* PPokemonCollectionViewCell.swift */,
+				7AAAA4F62979BDBB00A63849 /* PFooterLoadingCollectionReusableView.swift */,
+			);
+			path = Pokedex;
+			sourceTree = "<group>";
+		};
+		7A3E0C992985DB8200927B1B /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				7A3E0CA62985FEE200927B1B /* PPokemonFavoriteListViewViewModel.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		7A3E0C9A2985DB9500927B1B /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				7A3E0CA42985FED400927B1B /* PPokemonFavoriteListView.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		7A3E0CA829860D4400927B1B /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				7A3E0CA929860D5200927B1B /* PFirestoreService.swift */,
+				7A3E0CAB29860DC800927B1B /* PFirestoreCollections.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		7A3E0CAD2986A90B00927B1B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A3E0CB02989CC0300927B1B /* Team */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
+		7A3E0CB12989CC1000927B1B /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				7A3E0CB22989CC4600927B1B /* PPokemonTeamListView.swift */,
+				7A6D18FE298AF530006E367A /* PPokemonTeamCollectionViewCell.swift */,
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
 		7AAAA4EF2979AAF100A63849 /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +220,7 @@
 			children = (
 				7AEA8DC92971EC170014B850 /* PokeApp */,
 				7AEA8DC82971EC170014B850 /* Products */,
+				7A3E0CAD2986A90B00927B1B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,10 +269,10 @@
 		7AEA8DE02971EE120014B850 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7AF1A1302978B594009D3FDF /* PPokemonListView.swift */,
-				7AAAA4E72978C39900A63849 /* PPokemonCollectionViewCell.swift */,
+				7A3E0CB12989CC1000927B1B /* Team */,
+				7A3E0C9A2985DB9500927B1B /* Favorites */,
+				7A3E0C982985DB6F00927B1B /* Pokedex */,
 				7AAAA500297C98FD00A63849 /* PokemonDetail */,
-				7AAAA4F62979BDBB00A63849 /* PFooterLoadingCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,9 +280,10 @@
 		7AEA8DE12971EE170014B850 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				7A3E0CB02989CC0300927B1B /* Team */,
+				7A3E0C992985DB8200927B1B /* Favorites */,
 				7AAAA4FA297C95B500A63849 /* PokemonDetail */,
-				7AF1A12E2978B50A009D3FDF /* PPokemonListViewViewModel.swift */,
-				7AAAA4E92978C48D00A63849 /* PPokemonCollectionViewCellViewModel.swift */,
+				7A3E0C972985DB5F00927B1B /* Pokedex */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -200,6 +291,7 @@
 		7AEA8DE22971EE200014B850 /* APIClient */ = {
 			isa = PBXGroup;
 			children = (
+				7A3E0CA829860D4400927B1B /* Firebase */,
 				7A9032F42977718F00BAFF03 /* PService.swift */,
 				7A9032F62977719800BAFF03 /* PRequest.swift */,
 				7A9032F82977722500BAFF03 /* PEndpoint.swift */,
@@ -218,6 +310,7 @@
 		7AEA8DE42971EE3C0014B850 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7A3E0C9B2985DE2200927B1B /* GoogleService-Info.plist */,
 				7AEA8DD32971EC190014B850 /* Assets.xcassets */,
 				7AEA8DD52971EC190014B850 /* LaunchScreen.storyboard */,
 				7AEA8DCA2971EC170014B850 /* AppDelegate.swift */,
@@ -280,6 +373,10 @@
 			packageProductDependencies = (
 				7A761F1429839538007C9460 /* SVGKit */,
 				7A761F1629839538007C9460 /* SVGKitSwift */,
+				7A3E0C9E2985DEFA00927B1B /* FirebaseAnalytics */,
+				7A3E0CA02985DEFA00927B1B /* FirebaseCrashlytics */,
+				7A3E0CA22985DEFA00927B1B /* FirebaseFirestore */,
+				7A3E0CAE2986A90B00927B1B /* FirebaseFirestoreSwift */,
 			);
 			productName = PokeApp;
 			productReference = 7AEA8DC72971EC170014B850 /* PokeApp.app */;
@@ -311,6 +408,7 @@
 			mainGroup = 7AEA8DBE2971EC170014B850;
 			packageReferences = (
 				7A761F1329839538007C9460 /* XCRemoteSwiftPackageReference "SVGKit" */,
+				7A3E0C9D2985DEFA00927B1B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 7AEA8DC82971EC170014B850 /* Products */;
 			projectDirPath = "";
@@ -328,6 +426,7 @@
 			files = (
 				7AEA8DD72971EC190014B850 /* LaunchScreen.storyboard in Resources */,
 				7AEA8DD42971EC190014B850 /* Assets.xcassets in Resources */,
+				7A3E0C9C2985DE2200927B1B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,12 +438,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A76ABF929805D1300AB5213 /* PPokemonDetailInfoTableViewCellViewModel.swift in Sources */,
+				7A3E0CA52985FED400927B1B /* PPokemonFavoriteListView.swift in Sources */,
 				7AAAA4F12979AB0E00A63849 /* PPokemonDetailViewController.swift in Sources */,
 				7A4C355229777F5700B33205 /* PPokemonTypes.swift in Sources */,
 				7A76ABF5298054A300AB5213 /* PPokemonDetailInfoTableViewCell.swift in Sources */,
+				7A6D18FF298AF530006E367A /* PPokemonTeamCollectionViewCell.swift in Sources */,
 				7A76ABFF2983546400AB5213 /* PPokemonDetailStatsTableViewCellViewModel.swift in Sources */,
 				7A76ABFD29833E5000AB5213 /* PPokemonDetailStatsTableViewCell.swift in Sources */,
+				7A3E0CB32989CC4600927B1B /* PPokemonTeamListView.swift in Sources */,
 				7AEA8DEF2971F1240014B850 /* PTeamViewController.swift in Sources */,
+				7A3E0CA72985FEE200927B1B /* PPokemonFavoriteListViewViewModel.swift in Sources */,
 				7AEA8DCF2971EC170014B850 /* PTabBarController.swift in Sources */,
 				7A4C3550297778A200B33205 /* PPokemonStats.swift in Sources */,
 				7AEA8DCB2971EC170014B850 /* AppDelegate.swift in Sources */,
@@ -364,7 +467,9 @@
 				7A9032F52977718F00BAFF03 /* PService.swift in Sources */,
 				7AEA8DE62971EF830014B850 /* PPokemon.swift in Sources */,
 				7A4C355429777FDC00B33205 /* PPokemonNamedAPIResource.swift in Sources */,
+				7A3E0CAC29860DC800927B1B /* PFirestoreCollections.swift in Sources */,
 				7AAAA4F32979ABD600A63849 /* PPokemonDetailView.swift in Sources */,
+				7A3E0CAA29860D5200927B1B /* PFirestoreService.swift in Sources */,
 				7AAAA4F72979BDBB00A63849 /* PFooterLoadingCollectionReusableView.swift in Sources */,
 				7A9032F92977722600BAFF03 /* PEndpoint.swift in Sources */,
 				7AEA8DCD2971EC170014B850 /* SceneDelegate.swift in Sources */,
@@ -583,6 +688,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7A3E0C9D2985DEFA00927B1B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		7A761F1329839538007C9460 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
@@ -594,6 +707,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7A3E0C9E2985DEFA00927B1B /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A3E0C9D2985DEFA00927B1B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		7A3E0CA02985DEFA00927B1B /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A3E0C9D2985DEFA00927B1B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		7A3E0CA22985DEFA00927B1B /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A3E0C9D2985DEFA00927B1B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		7A3E0CAE2986A90B00927B1B /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A3E0C9D2985DEFA00927B1B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
 		7A761F1429839538007C9460 /* SVGKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7A761F1329839538007C9460 /* XCRemoteSwiftPackageReference "SVGKit" */;

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PPokemon: Codable, PPokemonDataRender {
+struct PPokemon: Codable {
     
     let id: Int
     let name: String
@@ -41,16 +41,17 @@ struct PPokemon: Codable, PPokemonDataRender {
     }
     
     var abilitiesString: String {
-        var abilitiesNames: [String] = abilities.compactMap({
+        let abilitiesNames: [String] = abilities.compactMap({
             return $0.ability.name.capitalized
         })
         return abilitiesNames.joined(separator: ", ")
     }
     
     var typeString: String {
-        var typeNames: [String] = types.compactMap({
+        let typeNames: [String] = types.compactMap({
             return $0.type.name.capitalized
         })
         return typeNames.joined(separator: ", ")
     }
+    
 }

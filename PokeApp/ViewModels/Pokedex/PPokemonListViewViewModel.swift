@@ -10,7 +10,9 @@ import UIKit
 protocol PPokemonListViewViewModelDelegate: AnyObject {
     func didLoadInitialPokemons()
     func didLoadMorePokemons(with newIndexPath: [IndexPath])
-    func didSelectPokemon(_ pokemonUrl: PPokemonNamedAPIResource)
+    func didSelectPokemon(_ pokemon: PPokemon)
+    func didSetModeView()
+    func didSetModeSelect()
 }
 
 /// View model to handle character list view logic
@@ -38,6 +40,25 @@ final class PPokemonListViewViewModel: NSObject {
     private var cellViewModels: [PPokemonCollectionViewCellViewModel] = []
     
     private var apiNext: String? = nil
+    
+    enum Mode {
+        case view, select
+    }
+    
+    private var mMode: Mode = .view {
+        didSet {
+            switch mMode {
+            case .view:
+                delegate?.didSetModeView()
+            case .select:
+                delegate?.didSetModeSelect()
+            }
+        }
+    }
+    
+    public func doneTapped() {
+        mMode = mMode == .view ? .select : .view
+    }
     
     /// Fetch initial set of Pokemon
     public func fetchPokemons() {
@@ -101,6 +122,27 @@ final class PPokemonListViewViewModel: NSObject {
         }
     }
     
+    /// Fetch single pokemon
+    /// - Parameter url: url from the selected pokemon
+    private func fetchPokemon(url: URL) {
+        guard let request = PRequest(url: url) else {
+            print("Failed to create request")
+            return
+        }
+        PService.shared.execute(request, expecting: PPokemon.self) {[weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .success(let responseModel):
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.didSelectPokemon(responseModel)
+                }
+            case .failure(let error):
+                print(String(describing: error))
+            }
+        }
+    }
+
+    
     public var shouldShowLoadMoreIndicator: Bool {
         return apiNext != nil
     }
@@ -136,8 +178,13 @@ extension PPokemonListViewViewModel: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let pokemonUrl = pokemons[indexPath.row]
-        delegate?.didSelectPokemon(pokemonUrl)
+        let pokemonUrl = pokemons[indexPath.row].url
+        guard let url = URL(string: pokemonUrl) else {
+            return
+        }
+        DispatchQueue.global(qos: .background).async {
+            self.fetchPokemon(url: url)
+        }
     }
     
     //FOOTER

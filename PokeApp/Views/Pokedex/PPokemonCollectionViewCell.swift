@@ -31,14 +31,47 @@ class PPokemonCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let highlightIndicator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.alpha = 0.5
+        view.layer.cornerRadius = 10
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let checkImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "checkmark.circle")?.withTintColor(.blue)
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        image.isHidden = true
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     //MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .secondarySystemBackground
-        contentView.addSubviews(imageView, nameLabel)
+        contentView.addSubviews(highlightIndicator,checkImage,imageView, nameLabel)
         addConstraints()
         setUpLayer() 
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            highlightIndicator.isHidden = !isHighlighted
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            highlightIndicator.isHidden = !isSelected
+            checkImage.isHidden = !isSelected
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -54,11 +87,19 @@ class PPokemonCollectionViewCell: UICollectionViewCell {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            nameLabel.heightAnchor.constraint(equalToConstant: 50),
+            checkImage.heightAnchor.constraint(equalToConstant: 40),
+            checkImage.widthAnchor.constraint(equalToConstant: 40),
+            checkImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            checkImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
+            highlightIndicator.topAnchor.constraint(equalTo: contentView.topAnchor),
+            highlightIndicator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            highlightIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            highlightIndicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            nameLabel.heightAnchor.constraint(equalToConstant: 50),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 7),
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -7),
-            
             nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),

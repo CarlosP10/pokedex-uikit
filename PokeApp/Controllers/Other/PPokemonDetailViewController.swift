@@ -13,6 +13,8 @@ final class PPokemonDetailViewController: UIViewController {
     
     private let detailView: PPokemonDetailView
     
+    private var isFavorite: Bool = false
+    
     //MARK: - Init
     init(viewModel: PPokemonDetailViewViewModel) {
         self.viewModel = viewModel
@@ -31,13 +33,31 @@ final class PPokemonDetailViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
-        let likeItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(didTapSave))
-        navigationItem.rightBarButtonItems = [shareItem, likeItem]
+        PFirestoreService.shared.getData(
+            .favorites,
+            viewModel.title) { document, error in
+                if let document = document, document.exists {
+                    self.isFavorite = true
+                }
+                let likeItem = self.setUpFavoriteButton(self.isFavorite)
+                self.navigationItem.rightBarButtonItems = [shareItem, likeItem]
+            }
         
         title = viewModel.title
         view.addSubview(detailView)
         addConstraints()
         
+    }
+    
+    private func setUpFavoriteButton(_ isFavorite: Bool) -> UIBarButtonItem {
+        let name = isFavorite ? "heart.fill" : "heart"
+        let likeItem = UIBarButtonItem(
+            image: UIImage(systemName: name)?.withTintColor(.red, renderingMode: .alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(didTapSave)
+        )
+        return likeItem
     }
     
     @objc
@@ -47,7 +67,24 @@ final class PPokemonDetailViewController: UIViewController {
     
     @objc
     private func didTapSave() {
+        let pokemon = viewModel.pokemon
         // Save Pokemon info
+        if isFavorite {
+            PFirestoreService.shared.deleteData(
+                .favorites,
+                viewModel.title
+            )
+        }
+        if !isFavorite {
+            PFirestoreService.shared.setData(
+                .favorites,
+                viewModel.title,
+                pokemon
+            )
+        }
+        isFavorite.toggle()
+        navigationItem.rightBarButtonItems![1] = setUpFavoriteButton(isFavorite)
+        
     }
     
     private func addConstraints() {
