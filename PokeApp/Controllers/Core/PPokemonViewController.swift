@@ -12,27 +12,16 @@ final class PPokemonViewController: UIViewController {
 
     private let pokemonListView = PPokemonListView(frame: .zero)
     
-    private let doneButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Done", for: .normal)
-        button.setTitleColor(.label, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.contentHorizontalAlignment = .right
-        button.isHidden = true
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Pokedex"
         setUpView()
-        doneButton.addTarget(self, action: #selector(doneTapped), for: .touchUpInside)
     }
     
     override func viewWillLayoutSubviews() {
         if navigationController == nil {
-            doneButton.isHidden = false
+            pokemonListView.showHeaderIsHidden(false)
         }
     }
     
@@ -52,15 +41,14 @@ final class PPokemonViewController: UIViewController {
             pokemonListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-    
-    @objc
-    private func doneTapped() {
-        dismiss(animated: true)
-    }
 }
 
 //MARK: - PPokemonListViewDelegate
 extension PPokemonViewController: PPokemonListViewDelegate {
+    func dismissButtonTapped() {
+        dismiss(animated: true)
+    }
+    
     func pPokemonListView(didselectPokemon pokemon: PPokemon) {
         //Open detail controller for that controller
         let viewModel = PPokemonDetailViewViewModel(pokemon: pokemon)

@@ -11,6 +11,7 @@ protocol PPokemonListViewDelegate: AnyObject {
     func pPokemonListView(
         didselectPokemon pokemon: PPokemon
     )
+    func dismissButtonTapped()
 }
 
 /// View that handles showing list of pokemons, loader, etc
@@ -29,10 +30,23 @@ final class PPokemonListView: UIView {
     
     private let doneButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Donee", for: .normal)
+        button.setTitle("Select", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+//        button.backgroundColor = .yellow
         button.contentHorizontalAlignment = .right
+        return button
+    }()
+    
+    private let dismissButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "x.circle.fill")?.withTintColor(.label, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        button.setTitle("", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentHorizontalAlignment = .right
+//        button.backgroundColor = .red
+//        button.contentVerticalAlignment = .top
         return button
     }()
     
@@ -63,29 +77,56 @@ final class PPokemonListView: UIView {
         return stack
     }()
     
+    private let buttonsStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillProportionally
+        stack.alignment = .trailing
+        stack.spacing = -9
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
         addSubviews(stackView, spinner)
-        stackView.addArrangedSubviews(doneButton,collectionView)
+        stackView.addArrangedSubviews(buttonsStackView,collectionView)
+        buttonsStackView.addArrangedSubviews(doneButton,dismissButton)
         addConstraints()
         spinner.startAnimating()
         viewModel.delegate = self
         DispatchQueue.global(qos: .background).async {[weak self] in
             self?.viewModel.fetchPokemons()
         }
+        showHeaderIsHidden(true)
         setUpCollectionView()
         doneButton.addTarget(self, action: #selector(doneTapped), for: .touchUpInside)
+        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("Unsupported")
     }
     
+    public func showHeaderIsHidden(_ bool: Bool){
+        buttonsStackView.isHidden = bool
+        viewModel.isHeaderHidden = bool
+        collectionView.allowsMultipleSelection = !bool
+    }
+    
     @objc
     private func doneTapped() {
         viewModel.doneTapped()
+        doneButton.shine()
+    }
+    
+    @objc
+    private func dismissButtonTapped() {
+        viewModel.dismissTapped()
+        delegate?.dismissButtonTapped()
+        dismissButton.shine()
     }
     
     
@@ -99,7 +140,7 @@ final class PPokemonListView: UIView {
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
@@ -110,14 +151,14 @@ final class PPokemonListView: UIView {
 }
 
 extension PPokemonListView: PPokemonListViewViewModelDelegate {
-    func didSetModeView() {
-        doneButton.setTitle("Done", for: .normal)
-        collectionView.allowsMultipleSelection = false
+    func didDeselectPokemon(at indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
     
-    func didSetModeSelect() {
-        doneButton.setTitle("Select", for: .normal)
-        collectionView.allowsMultipleSelection = true
+    func didSetModeSelect(isEmpty: Bool) {
+        isEmpty
+        ? doneButton.setTitle("Select", for: .normal)
+        : doneButton.setTitle("Done", for: .normal)
     }
     
     func didSelectPokemon(_ pokemon: PPokemon) {
@@ -139,5 +180,4 @@ extension PPokemonListView: PPokemonListViewViewModelDelegate {
             self.collectionView.insertItems(at: newIndexPath)
         }
     }
-    
 }

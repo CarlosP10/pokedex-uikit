@@ -67,7 +67,6 @@ final class PPokemonDetailViewController: UIViewController {
     
     @objc
     private func didTapSave() {
-        let pokemon = viewModel.pokemon
         // Save Pokemon info
         if isFavorite {
             PFirestoreService.shared.deleteData(
@@ -79,7 +78,7 @@ final class PPokemonDetailViewController: UIViewController {
             PFirestoreService.shared.setData(
                 .favorites,
                 viewModel.title,
-                pokemon
+                viewModel.pokemon
             )
         }
         isFavorite.toggle()

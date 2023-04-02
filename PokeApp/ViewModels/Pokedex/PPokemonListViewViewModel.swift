@@ -11,8 +11,12 @@ protocol PPokemonListViewViewModelDelegate: AnyObject {
     func didLoadInitialPokemons()
     func didLoadMorePokemons(with newIndexPath: [IndexPath])
     func didSelectPokemon(_ pokemon: PPokemon)
-    func didSetModeView()
-    func didSetModeSelect()
+    func didDeselectPokemon(at indexPath: IndexPath)
+    func didSetModeSelect(isEmpty: Bool)
+}
+
+protocol PPokemonListViewViewModelTeamsDelegate: AnyObject {
+    func selectedPokemons(_ pokemons: [PPokemon])
 }
 
 /// View model to handle character list view logic
@@ -20,6 +24,7 @@ final class PPokemonListViewViewModel: NSObject {
     
     //Weak to avoid memory leak
     public weak var delegate: PPokemonListViewViewModelDelegate?
+    public weak var teamDelegate: PPokemonListViewViewModelTeamsDelegate?
     
     private var isLoadingMorePokemons = false
     
@@ -41,23 +46,52 @@ final class PPokemonListViewViewModel: NSObject {
     
     private var apiNext: String? = nil
     
+    public var isHeaderHidden = true
+    
     enum Mode {
-        case view, select
+        case select
     }
     
-    private var mMode: Mode = .view {
+    private var mMode: Mode = .select {
         didSet {
             switch mMode {
-            case .view:
-                delegate?.didSetModeView()
             case .select:
-                delegate?.didSetModeSelect()
+                for (key, value) in pokemonsSelected {
+                    if value {
+                        guard let url = URL(string: pokemons[key.row].url) else { return }
+                        fetchPokemon(url: url)
+                    }
+                }
+                
             }
         }
     }
     
+    var pokemonsSelected: [IndexPath: Bool] = [:] {
+        didSet {
+            if pokemonsSelected.isEmpty {
+                delegate?.didSetModeSelect(isEmpty: pokemonsSelected.isEmpty)
+            } else {
+                delegate?.didSetModeSelect(isEmpty: pokemonsSelected.isEmpty)
+            }
+            print("Select",pokemonsSelected)
+        }
+    }
+    
+    private var teamsFromPokemon = [PPokemon]()
+    
     public func doneTapped() {
-        mMode = mMode == .view ? .select : .view
+        mMode = .select
+        
+    }
+    
+    public func dismissTapped() {
+        for (key, value) in pokemonsSelected {
+            if value {
+                delegate?.didDeselectPokemon(at: key)
+            }
+        }
+        pokemonsSelected.removeAll()
     }
     
     /// Fetch initial set of Pokemon
@@ -134,7 +168,12 @@ final class PPokemonListViewViewModel: NSObject {
             switch result {
             case .success(let responseModel):
                 DispatchQueue.main.async {
-                    strongSelf.delegate?.didSelectPokemon(responseModel)
+                    if strongSelf.isHeaderHidden {
+                        strongSelf.delegate?.didSelectPokemon(responseModel)
+                    } else {
+                        strongSelf.teamsFromPokemon.append(responseModel)
+                        strongSelf.teamDelegate?.selectedPokemons(strongSelf.teamsFromPokemon)
+                    }
                 }
             case .failure(let error):
                 print(String(describing: error))
@@ -177,13 +216,27 @@ extension PPokemonListViewViewModel: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        let pokemonUrl = pokemons[indexPath.row].url
-        guard let url = URL(string: pokemonUrl) else {
-            return
+        if isHeaderHidden {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            let pokemonUrl = pokemons[indexPath.row].url
+            guard let url = URL(string: pokemonUrl) else {
+                return
+            }
+            DispatchQueue.global(qos: .background).async {
+                self.fetchPokemon(url: url)
+            }
+        } else {
+            switch mMode {
+            case .select:
+                pokemonsSelected[indexPath] = true
+            }
         }
-        DispatchQueue.global(qos: .background).async {
-            self.fetchPokemon(url: url)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if mMode == .select {
+            pokemonsSelected[indexPath] = false
+            pokemonsSelected.removeValue(forKey: indexPath)
         }
     }
     

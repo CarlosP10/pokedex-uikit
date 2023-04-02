@@ -15,6 +15,8 @@ final class PPokemonTeamListView: UIView {
     
     public weak var delegate: PPokemonTeamListViewDelegate?
     
+    private let viewModel = PPokemonTeamListViewViewModel()
+    
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
         spinner.hidesWhenStopped = true
@@ -27,6 +29,8 @@ final class PPokemonTeamListView: UIView {
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isHidden = true
+        collectionView.alpha = 0
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(PPokemonTeamCollectionViewCell.self, forCellWithReuseIdentifier: PPokemonTeamCollectionViewCell.identifier)
         return collectionView
@@ -35,10 +39,20 @@ final class PPokemonTeamListView: UIView {
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(collectionView, spinner)
+        setUpView()
         setUpConstraints()
         setUpCollectionView()
+    }
+    
+    private func setUpView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        addSubviews(collectionView, spinner)
+        spinner.startAnimating()
+        
+        viewModel.delegate = self
+        DispatchQueue.global(qos: .background).async {
+            self.viewModel.getPokemonTeams()
+        }
     }
     
     private func setUpConstraints() {
@@ -56,19 +70,16 @@ final class PPokemonTeamListView: UIView {
     }
     
     private func setUpCollectionView() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        collectionView.dataSource = viewModel
+        collectionView.delegate = viewModel
     }
-    
-    private var teams: [String] = []
     
     public func didTapAdd() -> UIAlertController {
         let ac = UIAlertController(title: "Team name", message: nil, preferredStyle: .alert)
         ac.addTextField()
         ac.addAction(UIAlertAction(title: "Ok", style: .default) {[weak self, weak ac] _ in
             guard let name = ac?.textFields?[0].text else { return }
-            self?.teams.append(name)
-            self?.collectionView.reloadData()
+            self?.viewModel.savePokemonTeam(name: name)
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         return ac
@@ -80,32 +91,23 @@ final class PPokemonTeamListView: UIView {
     
 }
 
-//MARK: - CollectionView
-extension PPokemonTeamListView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return teams.count
+//MARK: - ViewModel
+extension PPokemonTeamListView: PPokemonTeamListViewViewModelDelegate {
+    func reloadTeamsCollection() {
+        collectionView.reloadData()
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: PPokemonTeamCollectionViewCell.identifier,
-            for: indexPath
-        ) as? PPokemonTeamCollectionViewCell else {
-            fatalError("Unsupported cell")
-        }
-        cell.configure(name: teams[indexPath.row])
+    func didLoadTeams() {
+        spinner.stopAnimating()
+        collectionView.isHidden = false
+        collectionView.reloadData()
         
-        //TODO: CELL
-        return cell
+        UIView.animate(withDuration: 0.4) {
+            self.collectionView.alpha = 1
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let bounds = UIScreen.main.bounds
-        let width = (bounds.width-45)/2
-        return CGSize(width: width, height: width)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func didSelectTeam() {
         delegate?.didSelectTeam()
     }
     
